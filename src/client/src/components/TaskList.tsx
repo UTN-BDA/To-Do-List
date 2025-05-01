@@ -49,7 +49,9 @@ const TaskList: React.FC<TaskListProps> = ({
                         <Checkbox
                             edge="start"
                             checked={task.completed}
-                            onChange={() => task.id !== undefined && onToggleComplete(task.id, !task.completed)}
+                            onChange={() =>
+                                task.id !== undefined && onToggleComplete(task.id, !task.completed)
+                            }
                             color="primary"
                         />
                         <ListItemText
@@ -68,7 +70,9 @@ const TaskList: React.FC<TaskListProps> = ({
                             <IconButton
                                 edge="end"
                                 aria-label="delete"
-                                onClick={() => task.id !== undefined ? onDeleteTask(task.id) : null}
+                                onClick={() =>
+                                    task.id !== undefined ? onDeleteTask(task.id) : null
+                                }
                             >
                                 <DeleteIcon />
                             </IconButton>

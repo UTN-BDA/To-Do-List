@@ -1,42 +1,71 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Button, TextField, Box, Typography } from '@mui/material';
 import { Task } from '../types/Task';
-import {
-    ListItem, ListItemText, IconButton, Checkbox,
-    Typography, Paper
-} from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
 
-interface TaskItemProps {
-    task: Task;
-    onToggle: (id: number, completed: boolean) => void;
-    onDelete: (id: number) => void;
-    onEdit: (task: Task) => void;
+interface TaskFormProps {
+    onSubmit: (task: Omit<Task, 'id'>) => void;
+    editTask: Task | null;
+    onCancel?: () => void;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onDelete, onEdit }) => {
+const TaskForm: React.FC<TaskFormProps> = ({ onSubmit, editTask, onCancel }) => {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+
+    useEffect(() => {
+        if (editTask) {
+            setTitle(editTask.title);
+            setDescription(editTask.description || '');
+        }
+    }, [editTask]);
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        onSubmit({
+            title,
+            description,
+            completed: editTask ? editTask.completed : false
+        });
+        setTitle('');
+        setDescription('');
+    };
+
     return (
-        <Paper elevation={2} style={{ margin: '8px 0' }}>
-            <ListItem>
-                <Checkbox
-                    checked={task.completed}
-                    onChange={() => onToggle(task.id!, !task.completed)}
-                />
-                <ListItemText
-                    primary={<Typography style={{
-                        textDecoration: task.completed ? 'line-through' : 'none'
-                    }}>{task.title}</Typography>}
-                    secondary={task.description}
-                />
-                <IconButton onClick={() => onEdit(task)}>
-                    <EditIcon />
-                </IconButton>
-                <IconButton onClick={() => onDelete(task.id!)}>
-                    <DeleteIcon />
-                </IconButton>
-            </ListItem>
-        </Paper>
+        <Box component="form" onSubmit={handleSubmit} sx={{ mb: 4 }}>
+            <Typography variant="h6" sx={{ mb: 2 }}>
+                {editTask ? 'Editar Tarea' : 'Nueva Tarea'}
+            </Typography>
+            <TextField
+                label="Título"
+                variant="outlined"
+                fullWidth
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+                sx={{ mb: 2 }}
+            />
+            <TextField
+                label="Descripción"
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={3}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                sx={{ mb: 2 }}
+            />
+            <Box sx={{ display: 'flex', gap: 2 }}>
+                <Button type="submit" variant="contained" color="primary">
+                    {editTask ? 'Actualizar' : 'Crear'}
+                </Button>
+                {editTask && onCancel && (
+                    <Button variant="outlined" color="secondary" onClick={onCancel}>
+                        Cancelar
+                    </Button>
+                )}
+            </Box>
+        </Box>
     );
 };
 
-export default TaskItem;
+export default TaskForm;

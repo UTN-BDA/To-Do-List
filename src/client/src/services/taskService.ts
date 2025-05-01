@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Task } from '../types/Task';
 
-const API_URL = 'http://localhost:5000'; // URL de tu backend
+const API_URL = 'http://localhost:5000'; // URL de backend
 
 export const getAllTasks = async (): Promise<Task[]> => {
     const response = await axios.get(`${API_URL}/api/lista/tasks`);

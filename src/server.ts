@@ -2,6 +2,7 @@ import Express, { Router } from 'express';
 import db from './config/db';
 import colors from 'colors';
 import router from './routers/router';
+import cors from 'cors';
 
 //Conection to the database
 export async function connectDB() {
@@ -17,8 +18,11 @@ export async function connectDB() {
 
 connectDB()
 
+const cors=require('cors')
 const server = Express();
+
 server.use(Express.json());
+server.use(cors({ origin: 'http://localhost:3000' }))
 
 server.use('/api/lista',router)
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/HomePages.css'; // Import your CSS file for styling 
 
 // Define the Todo interface
 interface Todo {

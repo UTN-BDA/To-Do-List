@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Container, Typography, Box } from '@mui/material';
 import TaskList from './components/TaskList';
 import TaskForm from './components/TaskForm';
 import { Task } from './types/Task';
 import { getAllTasks, createTask, updateTask, deleteTask } from './services/taskService';
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
+import { useAuth } from './context/authContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
-const App: React.FC = () => {
+const TasksPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [editTask, setEditTask] = useState<Task | null>(null);
 
@@ -85,6 +90,28 @@ const App: React.FC = () => {
         />
       </Box>
     </Container>
+  );
+};
+
+const App: React.FC = () => {
+  const { user } = useAuth();
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <TasksPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to={user ? '/' : '/login'} />} />
+      </Routes>
+    </Router>
   );
 };
 

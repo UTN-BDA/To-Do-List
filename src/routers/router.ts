@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { getTasks, getTaskById, createTask, updateTask, deleteTask, deleteAllTasks } from "../controllers/controller";
+import authRoutes from "./authRouter";
 
 const router = Router();
+
+router.use('/', authRoutes);
 
 //Obtener todas las tareas
 router.get('/tasks', getTasks);

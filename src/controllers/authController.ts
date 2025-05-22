@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import {User} from '../models/userModel';
+import { Request, Response } from 'express';
 
 export const register = async (req, res) => {
     try {
@@ -39,18 +40,24 @@ export const register = async (req, res) => {
     }
 };
 
-export const login = async (req, res) => {
+export const login = async (req: Request, res: Response) => {
     const { username, password } = req.body;
     const user = await User.findOne({ where: { username } });
+
     if (!user || !(await bcrypt.compare(password, user.password))) {
         return res.status(401).json({ message: 'Credenciales inválidas' });
     }
 
-    const token = jwt.sign(
-        { id: user.id, role: user.role },
-        process.env.JWT_SECRET!,
-        { expiresIn: '1h' }
-    );
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
 
-    res.json({ token, user: { username: user.username, role: user.role } });
+    // 🔧 Devolvemos el token y los datos del usuario
+    res.json({
+        token,
+        user: {
+            id: user.id,
+            username: user.username,
+            role: user.role
+        }
+    });
 };
+

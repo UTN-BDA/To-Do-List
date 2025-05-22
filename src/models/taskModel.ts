@@ -1,30 +1,29 @@
-import { Table, Column, Model, DataType } from "sequelize-typescript";
+import {
+    Table,
+    Column,
+    Model,
+    DataType,
+    ForeignKey,
+    BelongsTo
+} from 'sequelize-typescript';
+import { User } from './userModel';
 
-@Table({
-    tableName: 'tasks'})
+@Table
+export class Task extends Model {
+    @Column(DataType.STRING)
+    title!: string;
 
-export class Task extends Model{
-    @Column({
-        type: DataType.INTEGER,
-        primaryKey: true,
-        autoIncrement: true
-    })
-    declare id: number;
+    @Column(DataType.STRING)
+    description!: string;
 
-    @Column({
-        type: DataType.STRING(100)
-    })
-    declare title: string;
+    @Column({ type: DataType.BOOLEAN, defaultValue: false })
+    done!: boolean;
 
-    @Column({
-        type: DataType.STRING(100)
-    })
-    declare description: string;
+    @ForeignKey(() => User)
+    @Column
+    userId!: number;
 
-    @Column({
-        type: DataType.BOOLEAN,
-        defaultValue: false
-    })
-    declare done: boolean;
+    @BelongsTo(() => User)
+    user!: User;
 }
-
+  

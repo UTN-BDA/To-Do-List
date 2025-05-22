@@ -1,21 +1,21 @@
 {
     "compilerOptions": {
-        "outDir": "./dist", // Carpeta donde se compila el projecto
-        "rootDir": "./src", // Donde va a encontrar los archivos
+        "outDir": "./dist",
+        "rootDir": "./src",
         "lib": [
             "esnext"
-        ], // Version de JS a la cual se va a compilar
-        "target": "ESNext", // Version de compilacion
-        "moduleResolution": "NodeNext",
-        "module": "NodeNext",
+        ],
+        "target": "ESNext",
+        "moduleResolution": "node",
+        "module": "commonjs",
         "strict": false,
-        "sourceMap": true, // Genera los mapas
-        "esModuleInterop": true, // Importar librerias commonjs
-        "declaration": true, // Genera archivos de definicion
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "declaration": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },
     "include": [
         "src/**/*.ts"
-    ] // Archivos a incluir en la compilacion
+    ]
 }

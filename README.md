@@ -66,7 +66,6 @@ Define los tipos TypeScript usados en la aplicación:
 - `Task`: estructura de una tarea (id, título, descripción, estado, userId).
 - `User`: estructura de un usuario (id, email, contraseña, etc.).
 
-Esto mejora la organización del código y permite trabajar con tipado estático.
 
 ---
 
@@ -85,7 +84,7 @@ Controla el flujo general de navegación de la aplicación.
 
 ---
 
-## ✅ Funcionalidades
+## Funcionalidades
 - Registro e inicio de sesión de usuarios.
 - Autenticación con tokens.
 - CRUD de tareas (crear, leer, actualizar, eliminar).
@@ -94,7 +93,7 @@ Controla el flujo general de navegación de la aplicación.
 
 ---
 
-## 🧪 Herramientas
+## Herramientas
 - React, TypeScript
 - Node.js, Express, Sequelize
 - PostgreSQL
@@ -104,7 +103,7 @@ Controla el flujo general de navegación de la aplicación.
 
 ---
 
-## 3 🔐 Variables de entorno
+## 3 Variables de entorno
 Añade una mini tabla para que quede claro qué debe contener `.env`. Ejemplo:
 
 | Variable | Ejemplo | Descripción |
@@ -114,11 +113,11 @@ Añade una mini tabla para que quede claro qué debe contener `.env`. Ejemplo:
 
 ---
 
-## 4 🚀 Sección _“Puesta en marcha”_ paso a paso
+## 4 Sección _“Puesta en marcha”_ paso a paso
 Incluye los comandos en bloque de código para copiar y pegar:
 
 ```Node
-#Instalacion de Node.js
+# 1. Instalacion de Node.js
 https://nodejs.org/
 
 ```bash

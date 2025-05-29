@@ -1,5 +1,5 @@
 import db from '../config/db';
-import { TestTask } from '../models/test_task'; // corregí el nombre para que coincida
+import { TestTask } from '../models/test_task'; 
 
 const TOTAL_TASKS = 500_000;
 const BATCH_SIZE = 1000;
@@ -7,7 +7,7 @@ const BATCH_SIZE = 1000;
 const createFakeTask = (index: number) => ({
     title: `Tarea número ${index}`,
     description: `Descripción generada para la tarea número ${index}`,
-    status: false,  // usa booleano: false para pendiente, true para completada
+    status: false,  
 });
 
 const seedTasks = async () => {
@@ -32,7 +32,7 @@ const seedTasks = async () => {
             totalInsertadas += cantidadActual;
 
             if (totalInsertadas % 10000 === 0) {
-                console.log(`📦 Insertadas ${totalInsertadas} tareas hasta ahora...`);
+                console.log(`Insertadas ${totalInsertadas} tareas hasta ahora...`);
             }
         }
 
@@ -40,7 +40,7 @@ const seedTasks = async () => {
         await db.close();
         console.timeEnd('⏱ Tiempo total');
     } catch (error) {
-        console.error('❌ Error al insertar tareas:', error);
+        console.error('Error al insertar tareas:', error);
         await db.close();
     }
 };

@@ -1,16 +1,25 @@
 import { Request, Response } from "express";
 import { Task } from "../models/taskModel";
+import { body, validationResult, param } from 'express-validator';
 
 // Create a new task
 export const createTask = async (req: Request, res: Response) => {
     try {
         const { title, description } = req.body;
-        const task = await Task.create({ title, description });
+        const userId = req.user.id; // ← recuperamos el ID del usuario autenticado
+
+        const task = await Task.create({
+            title,
+            description,
+            userId, // ← lo asignamos explícitamente
+        });
+
         res.status(201).json(task);
     } catch (error) {
         res.status(500).json({ message: "Error creating task", error });
     }
-}
+};
+
 
 // Get all tasks
 export const getTasks = async (req: Request, res: Response) => {        

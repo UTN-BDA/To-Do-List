@@ -19,8 +19,10 @@ export async function connectDB() {
 connectDB()
 
 const cors=require('cors')
+// Create an Express server
 const server = Express();
 
+// Middleware
 server.use(Express.json());
 server.use(cors({ origin: 'http://localhost:3000' }))
 

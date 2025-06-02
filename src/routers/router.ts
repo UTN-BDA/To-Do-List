@@ -1,33 +1,16 @@
 import { Router } from "express";
-import {
-    getTaskById,
-    updateTask,
-    deleteTask,
-    deleteAllTasks
-} from "../controllers/controller";
+import {getTaskById, updateTask, deleteTask, deleteAllTasks, createTask} from "../controllers/controller";
 import authRoutes from "./authRouter";
 import { authenticateUser } from "../middleware/authMiddleware";
+import { validateTaskCreation, validateIdParam } from "../middleware/taskValidators";
 import { Task } from "../models/taskModel";
 
 const router = Router();
 
-// rutas de autenticación
 router.use("/", authRoutes);
 
 // Crear tarea (protegida)
-router.post("/tasks", authenticateUser, async (req, res) => {
-    const userId = req.user.id;
-    const { title, description } = req.body;
-
-    const task = await Task.create({
-        title,
-        description,
-        done: false,
-        userId,
-    });
-
-    res.status(201).json(task);
-});
+router.post('/tasks', authenticateUser, validateTaskCreation, createTask);
 
 // Obtener tareas solo del usuario logueado
 router.get("/tasks", authenticateUser, async (req, res) => {
@@ -41,16 +24,16 @@ router.get("/tasks", authenticateUser, async (req, res) => {
     res.json(tasks);
 });
 
-// Obtener tarea por ID (opcional: podrías verificar si es del usuario también)
-router.get("/tasks/:id", authenticateUser, getTaskById);
+// Obtener tarea por ID
+router.get("/tasks/:id", authenticateUser, validateIdParam, getTaskById);
 
 // Actualizar tarea
-router.put("/tasks/:id", authenticateUser, updateTask);
+router.put("/tasks/:id", authenticateUser, validateIdParam, validateTaskCreation, updateTask);
 
 // Eliminar una tarea
-router.delete("/tasks/:id", authenticateUser, deleteTask);
+router.delete("/tasks/:id", authenticateUser, validateIdParam, deleteTask);
 
-// Eliminar todas las tareas del usuario logueado (opcional)
+// Eliminar todas las tareas del usuario logueado
 router.delete("/tasks", authenticateUser, deleteAllTasks);
 
 export default router;

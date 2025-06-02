@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import {User} from '../models/userModel';
 import { Request, Response } from 'express';
+import {body, validationResult} from 'express-validator';
 
 export const register = async (req, res) => {
     try {
@@ -40,24 +41,39 @@ export const register = async (req, res) => {
     }
 };
 
-export const login = async (req: Request, res: Response) => {
-    const { username, password } = req.body;
-    const user = await User.findOne({ where: { username } });
+export const login = [
+    // Validar y sanitizar entradas
+    body('username').isString().trim().escape(),
+    body('password').isString().trim(),
 
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ message: 'Credenciales inválidas' });
-    }
-
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
-
-    // 🔧 Devolvemos el token y los datos del usuario
-    res.json({
-        token,
-        user: {
-            id: user.id,
-            username: user.username,
-            role: user.role
+    async (req: Request, res: Response) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
-    });
-};
+
+        const { username, password } = req.body;
+
+        try {
+            const user = await User.findOne({ where: { username } });
+            if (!user || !(await bcrypt.compare(password, user.password))) {
+                return res.status(401).json({ message: 'Credenciales inválidas' });
+            }
+
+            const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, { expiresIn: '1h' });
+
+            res.json({
+                token,
+                user: {
+                    id: user.id,
+                    username: user.username,
+                    role: user.role
+                }
+            });
+        } catch (error) {
+            console.error('Error en el login:', error);
+            res.status(500).json({ message: 'Error del servidor' });
+        }
+    }
+];
 

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Task } from "../models/taskModel";
-import { body, validationResult, param } from 'express-validator';
 
 // Create a new task
 export const createTask = async (req: Request, res: Response) => {
@@ -19,7 +18,6 @@ export const createTask = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Error creating task", error });
     }
 };
-
 
 // Get all tasks
 export const getTasks = async (req: Request, res: Response) => {        

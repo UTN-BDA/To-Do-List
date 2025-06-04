@@ -6,12 +6,12 @@ import { body, validationResult, param } from 'express-validator';
 export const createTask = async (req: Request, res: Response) => {
     try {
         const { title, description } = req.body;
-        const userId = req.user.id; // ← recuperamos el ID del usuario autenticado
+        const userId = req.user.id; 
 
         const task = await Task.create({
             title,
             description,
-            userId, // ← lo asignamos explícitamente
+            userId, 
         });
 
         res.status(201).json(task);

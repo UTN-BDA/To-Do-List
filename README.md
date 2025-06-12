@@ -12,6 +12,12 @@ Esta es una aplicacion sencilla desarrollada para crear tareas para ser ordenado
 - **Contenedores:** Docker  
 
 
+## Programas usados externos 
+
+- **PostgresSql**
+- **DataGrip**
+- **PostMan**
+
 # El backend de la app está estructurada de la siguiente forma: 
 
 ├── config/ – configuración de Sequelize y variables de entorno

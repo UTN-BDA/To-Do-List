@@ -10,6 +10,7 @@ Esta es una aplicacion sencilla desarrollada para crear tareas para ser ordenado
 - **Base de datos:** PostgreSQL  
 - **Frontend:** React  
 - **Contenedores:** Docker  
+- **Autenticación:** JWT
 
 
 ## Programas usados externos 
@@ -58,7 +59,8 @@ Define funciones que conectan con el backend usando Axios. Cada función represe
 - Crear tarea → `POST http://localhost:5000/api/lista/tasks`
 - Obtener tareas → `GET http://localhost:5000/api/lista/tasks`
 - Eliminar tarea → `DELETE http://localhost:5000/api/lista/tasks/:id`
-- Registrar o loguear usuario → `POST` a las rutas correspondientes.
+- Registrar → `POST http://localhost:5000/api/lista/register`
+- Login→ `POST http://localhost:5000/api/lista/login`
 
 ---
 
@@ -96,16 +98,6 @@ Controla el flujo general de navegación de la aplicación.
 - CRUD de tareas (crear, leer, actualizar, eliminar).
 - Cada usuario solo ve sus propias tareas.
 - Integración entre frontend y backend con control de roles y permisos.
-
----
-
-## Herramientas
-- React, TypeScript
-- Node.js, Express, Sequelize
-- PostgreSQL
-- Axios
-- JWT (para autenticación)
-
 
 ---
 

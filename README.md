@@ -106,7 +106,8 @@ Añade una mini tabla para que quede claro qué debe contener `.env`. Ejemplo:
 
 | Variable | Ejemplo | Descripción |
 |----------|---------|-------------|
-| `DATABASE_URL` | `postgres://user:pass@db:5432/todo` | Cadena de conexión a PostgreSQL |
+| `DATABASE_URL` | `postgres://user:pass@db:5432/Mydatabase` | Cadena de conexión a PostgreSQL |
+|`DATABASE_URL_TEST` | `postgres://user:pass@db:5432/Mydatabase` | Cadena de conexión a PostgreSQL en Docker |
 | `JWT_SECRET` | `super-secret` | Clave para firmar tokens JWT |
 
 ---

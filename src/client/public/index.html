@@ -1,43 +1,284 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/Icono.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/LogoToDL.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<html lang="es">
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>To Do List</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<head>
+  <!-- Meta tags básicos -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  <!-- Seguridad -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' http://localhost:5000 https:;" />
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
+  <!-- Información de la aplicación -->
+  <title>TaskMaster - Gestor de Tareas Profesional</title>
+  <meta name="description"
+    content="TaskMaster es una aplicación web moderna y elegante para gestionar tus tareas diarias. Organiza, prioriza y completa tus objetivos de manera eficiente con nuestra interfaz intuitiva." />
+  <meta name="keywords"
+    content="tareas, todo list, productividad, gestión, organización, planificación, eficiencia, trabajo, proyectos" />
+  <meta name="author" content="TaskMaster Team" />
+  <meta name="robots" content="index, follow" />
+  <meta name="language" content="Spanish" />
+
+  <!-- Theme y colores -->
+  <meta name="theme-color" content="#4f46e5" />
+  <meta name="msapplication-TileColor" content="#4f46e5" />
+  <meta name="msapplication-navbutton-color" content="#4f46e5" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- Iconos y favicons -->
+  <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/Icono.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/LogoToDL.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png" />
+  <link rel="mask-icon" href="%PUBLIC_URL%/safari-pinned-tab.svg" color="#4f46e5" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://taskmaster.app/" />
+  <meta property="og:title" content="TaskMaster - Gestor de Tareas Profesional" />
+  <meta property="og:description"
+    content="Organiza tus tareas diarias con TaskMaster. Una aplicación web moderna, elegante y eficiente para mejorar tu productividad." />
+  <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="TaskMaster" />
+  <meta property="og:locale" content="es_ES" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://taskmaster.app/" />
+  <meta name="twitter:title" content="TaskMaster - Gestor de Tareas Profesional" />
+  <meta name="twitter:description"
+    content="Organiza tus tareas diarias con TaskMaster. Una aplicación web moderna, elegante y eficiente para mejorar tu productividad." />
+  <meta name="twitter:image" content="%PUBLIC_URL%/twitter-image.png" />
+  <meta name="twitter:creator" content="@TaskMasterApp" />
+
+  <!-- Preconnect para optimización de rendimiento -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Fuentes de Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Preload de recursos críticos -->
+  <link rel="preload" href="%PUBLIC_URL%/LogoToDL.png" as="image" />
+
+  <!-- Manifest para PWA -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <!-- DNS Prefetch para dominios externos -->
+  <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://taskmaster.app/" />
+
+  <!-- Structured Data para SEO -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "TaskMaster",
+      "description": "",
+      "url": "https://taskmaster.app/",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "TaskMaster Team"
+      }
+    }
+    </script>
+
+  <!-- Estilos críticos inline para mejorar el rendimiento -->
+  <style>
+    /* Critical CSS para evitar FOUC */
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: #f8fafc;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+
+    #root {
+      min-height: 100vh;
+    }
+
+    /* Loading spinner */
+    .loading-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .loading-spinner {
+      width: 3rem;
+      height: 3rem;
+      border: 3px solid #e5e7eb;
+      border-top: 3px solid #4f46e5;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .loading-text {
+      color: #6b7280;
+      font-weight: 500;
+    }
+
+    /* Ocultar el contenido hasta que React se cargue */
+    .app-loading {
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .app-loaded {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Mensaje para usuarios sin JavaScript -->
+  <noscript>
+    <div style="
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 2rem;
+        text-align: center;
+        background-color: #fef2f2;
+        color: #991b1b;
+        font-family: system-ui, sans-serif;
+      ">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="15" y1="9" x2="9" y2="15" />
+        <line x1="9" y1="9" x2="15" y2="15" />
+      </svg>
+      <h1 style="margin: 0; font-size: 1.5rem; font-weight: 600;">JavaScript Requerido</h1>
+      <p style="margin: 0; max-width: 400px; line-height: 1.6;">
+        TaskMaster requiere JavaScript para funcionar correctamente.
+        Por favor, habilita JavaScript en tu navegador y recarga la página.
+      </p>
+      <details style="margin-top: 1rem; max-width: 500px;">
+        <summary style="cursor: pointer; font-weight: 500; color: #7c2d12;">
+          ¿Cómo habilitar JavaScript?
+        </summary>
+        <div style="margin-top: 0.5rem; text-align: left; font-size: 0.875rem; color: #7c2d12;">
+          <p><strong>Chrome/Edge:</strong> Configuración → Privacidad y seguridad → Configuración del sitio → JavaScript
+          </p>
+          <p><strong>Firefox:</strong> about:config → javascript.enabled → true</p>
+          <p><strong>Safari:</strong> Preferencias → Seguridad → Habilitar JavaScript</p>
+        </div>
+      </details>
+    </div>
+  </noscript>
+
+  <!-- Contenedor principal de la aplicación -->
+  <div id="root">
+    <!-- Loading inicial mientras React se carga -->
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Cargando TaskMaster...</div>
+    </div>
+  </div>
+
+  <!-- Script para mejorar la experiencia de carga -->
+  <script>
+    // Remover el loading cuando React se monte
+    window.addEventListener('DOMContentLoaded', function () {
+      const root = document.getElementById('root');
+      if (root) {
+        root.classList.add('app-loading');
+
+        // Verificar si React se ha montado
+        const checkReactMount = setInterval(function () {
+          if (root.children.length > 1 || (root.children[0] && !root.children[0].classList.contains('loading-container'))) {
+            root.classList.remove('app-loading');
+            root.classList.add('app-loaded');
+            clearInterval(checkReactMount);
+          }
+        }, 100);
+
+        // Timeout de seguridad
+        setTimeout(function () {
+          root.classList.remove('app-loading');
+          root.classList.add('app-loaded');
+          clearInterval(checkReactMount);
+        }, 5000);
+      }
+    });
+
+    // Service Worker registration para PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('%PUBLIC_URL%/sw.js')
+          .then(function (registration) {
+            console.log('SW registered: ', registration);
+          })
+          .catch(function (registrationError) {
+            console.log('SW registration failed: ', registrationError);
+          });
+      });
+    }
+
+    // Analytics básico (opcional)
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID'); // Reemplazar con tu ID real
+  </script>
+
+  <!-- 
+      Este archivo HTML es una plantilla optimizada para TaskMaster.
+      Incluye mejoras de SEO, rendimiento, accesibilidad y PWA.
+      
+      Características incluidas:
+      - SEO optimizado con meta tags completos
+      - Open Graph y Twitter Cards
+      - Preconnect y preload para mejor rendimiento
+      - Structured data para motores de búsqueda
+      - CSS crítico inline
+      - Loading state mejorado
+      - Soporte para PWA
+      - Mejor mensaje de noscript
+      - Seguridad mejorada con CSP
     -->
-  </body>
+</body>
+
 </html>

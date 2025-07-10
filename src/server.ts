@@ -1,24 +1,12 @@
 import Express, { Router } from 'express';
-import db from './config/db';
-import colors from 'colors';
-import router from './routers/router';
+import connectMongo from './config/dbMongo';
+import router from './routers/taskRoutes'; 
 import cors from 'cors';
 
-//Conection to the database
-export async function connectDB() {
-    try {
-        await db.authenticate()
-        db.sync()
-        console.log(colors.bgBlue.white('Conexion Exitosa a la BD'))
-    } catch (error) {
-        console.log(error)
-        console.log(colors.bgRed.white('Hubo un error al conectar a la BD'))
-    }
-}
-
-connectDB()
+connectMongo()
 
 const cors=require('cors')
+
 // Create an Express server
 const server = Express();
 

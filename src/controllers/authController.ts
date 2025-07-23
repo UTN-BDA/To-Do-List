@@ -16,12 +16,12 @@ export const register = async (req, res) => {
         
         // Hash password
         const hashed = await bcrypt.hash(password, 10);
-        
-        // Create user with proper role (default to 'user' if not provided)
+
+        // Crear usuario
         const user = new User({username, password: hashed, role: role || 'user' });
         await user.save();
         
-        // Don't return the password in the response
+        // No devuelve el password en la respuesta, solo datos relevantes
         const userData = {
             id: user.id,
             username: user.username,

@@ -3,8 +3,9 @@ import connectMongo from './config/dbMongo';
 import router from './routers/taskRoutes'; 
 import cors from 'cors';
 import mongoSanitizer from 'express-mongo-sanitize';
-connectMongo()
+import adminRouter from './routers/adminRoutes';
 
+connectMongo()
 
 // Create an Express server
 const server = Express();
@@ -15,6 +16,8 @@ server.use(mongoSanitizer());
 server.use(cors({ origin: 'http://localhost:3000' }))
 
 server.use('/api/lista',router)
+server.use('admin',adminRouter)
+
 
 server.get('/', (req, res) => {
     res.json('REST API')

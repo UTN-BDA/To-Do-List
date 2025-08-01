@@ -1,35 +1,38 @@
+version: "3.9"
 services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/todolist
+    volumes:
+      - .:/app
+    command: npm run dev
+
   frontend:
     build:
       context: ./src/client
       dockerfile: Dockerfile
+    container_name: frontend
     ports:
-      - "3001:3000"  # React usa el puerto 3000 por defecto
-    volumes:
-      - ./client:/app
-      - /app/node_modules
+      - "5173:80"
     depends_on:
-      - app
-    environment:
-      - REACT_APP_API_URL=http://localhost:3001
+      - backend
 
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    env_file:
-      - ./.env
-   
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 4884
-      POSTGRES_DB: ToDoList
-    ports:
-      - "5432:5432"
+volumes:
+  mongo_data:

@@ -17,7 +17,7 @@ export const register = async (req, res) => {
         // Hash password
         const hashed = await bcrypt.hash(password, 10);
         
-        // Create user with proper role (default to 'user' if not provided)
+        // Create user instance
         const user = new User({username, password: hashed, role: role || 'user' });
         await user.save();
         
